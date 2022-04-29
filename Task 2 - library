@@ -21,14 +21,14 @@ contract Library is Ownable{
     mapping(uint=>book) public books;
     mapping(address=>mapping(uint=>bool)) public NotTaken;
 
-    function addBook (uint _id, string memory _titile, string memory _author, uint _copies) public onlyOwner {
+    function addBook (uint _id, string memory _title, string memory _author, uint _copies) public onlyOwner {
         
         books[_id]=book(_id, _titile,_author,_copies);
     }
 
 
     function borrow (uint _id) public {
-        require(NotTaken[msg.sender][_id] == false,"The user has already borrow a book");
+        require(NotTaken[msg.sender][_id] == false,"The user has already borrowed a book");
         require(books[_id].copies > 0,"No available copies");
         books[_id].copies--;
         NotTaken[msg.sender][_id] = true;
@@ -41,12 +41,10 @@ contract Library is Ownable{
     }
 
 
-    function retrun (uint _id) public {
+    function return (uint _id) public {
         require(NotTaken[msg.sender][_id] == true,"The user has nothing to return");
         books[_id].copies++;
         NotTaken[msg.sender][_id] = false; 
         emit bookReturned(msg.sender, _id);
     }
-
-
 }
