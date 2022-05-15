@@ -2,6 +2,8 @@
 pragma solidity ^0.8.0;
 pragma abicoder v2;
 
+import "./Ownable.sol";
+
 contract USElection is Ownable {
     
     uint8 public constant BIDEN = 1;
@@ -18,7 +20,6 @@ contract USElection is Ownable {
         uint8 stateSeats;
     }
 
-    event LogStateResult(uint8 winner, uint8 stateSeats, string state);
     event LogStateResult(uint8 winner, uint8 stateSeats, string state);
     event LogElectionEnded(uint winner);
 
